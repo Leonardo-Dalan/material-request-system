@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080c12">
+    <meta name="description" content="Material Request System - catalog, requests and logistics queue for the factory floor.">
+    <title>Material Request System</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23080c12'/%3E%3Cpath d='M4 7.5 12 3l8 4.5v9L12 21l-8-4.5zM4 7.5 12 12l8-4.5M12 12v9' fill='none' stroke='%2322d3ee' stroke-width='1.8'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="ambient-grid" aria-hidden="true"></div>
+
+    <section id="viewLogin" class="login-view">
+        <div class="login-shell">
+            <aside class="login-brand">
+                <div class="brand-lockup brand-lockup-lg">
+                    <span class="brand-mark" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"></path>
+                            <path d="M4 7.5 12 12l8-4.5M12 12v9"></path>
+                        </svg>
+                    </span>
+                    <span class="brand-copy">
+                        <strong>MATERIAL<span>//</span>REQUEST</strong>
+                        <small>Movement control system</small>
+                    </span>
+                </div>
+
+                <div class="login-hero">
+                    <span class="eyebrow">WAREHOUSE OPERATIONS</span>
+                    <h1>Every material movement, captured at the source.</h1>
+                    <p>Replace the paper Material Movement Log with a searchable catalog, a live logistics queue and a permanent movement history.</p>
+                </div>
+
+                <div class="login-signals">
+                    <div class="signal-row">
+                        <span class="signal-index">01</span>
+                        <div>
+                            <strong>Find the part</strong>
+                            <span>Search by part number or description across the full catalog.</span>
+                        </div>
+                    </div>
+                    <div class="signal-row">
+                        <span class="signal-index">02</span>
+                        <div>
+                            <strong>Move with context</strong>
+                            <span>Stock location, unit, job number and urgency in one request.</span>
+                        </div>
+                    </div>
+                    <div class="signal-row">
+                        <span class="signal-index">03</span>
+                        <div>
+                            <strong>Measure the flow</strong>
+                            <span>Lead times, rejection reasons and top requested items.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="login-meta">
+                    <span>PHASE 3</span>
+                    <span>STOCK + DASHBOARD + REPORTS</span>
+                    <span>v1.0</span>
+                </div>
+            </aside>
+
+            <div class="login-panel">
+                <form class="login-card" id="loginForm" autocomplete="on">
+                    <div class="login-card-head">
+                        <span class="live-chip"><span class="live-dot"></span> SYSTEM READY</span>
+                        <h2>Sign in</h2>
+                        <p>Use your factory account to access the material catalog.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="loginUser">Username</label>
+                        <div class="input-with-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="8" r="3.5"></circle>
+                                <path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"></path>
+                            </svg>
+                            <input type="text" id="loginUser" name="username" placeholder="Enter your username" autocomplete="username" spellcheck="false">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="loginPass">Password</label>
+                        <div class="input-with-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+                                <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                            </svg>
+                            <input type="password" id="loginPass" name="password" placeholder="Enter your password" autocomplete="current-password">
+                        </div>
+                    </div>
+
+                    <p class="form-error" id="loginError" role="alert"></p>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="loginSubmit">
+                        <span>Enter system</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M5 12h14M13 6l6 6-6 6"></path>
+                        </svg>
+                    </button>
+
+                    <div class="demo-divider"><span>DEMO ACCOUNTS</span></div>
+
+                    <div class="demo-grid">
+                        <button type="button" class="demo-account" data-action="demo-login" data-user="requester" data-pass="requester123">
+                            <span class="demo-role role-requester">REQUESTER</span>
+                            <strong>requester</strong>
+                            <small>requester123</small>
+                        </button>
+                        <button type="button" class="demo-account" data-action="demo-login" data-user="logistics" data-pass="logistics123">
+                            <span class="demo-role role-logistics">LOGISTICS</span>
+                            <strong>logistics</strong>
+                            <small>logistics123</small>
+                        </button>
+                        <button type="button" class="demo-account" data-action="demo-login" data-user="admin" data-pass="admin123">
+                            <span class="demo-role role-admin">ADMIN</span>
+                            <strong>admin</strong>
+                            <small>admin123</small>
+                        </button>
+                    </div>
+
+                    <p class="login-footnote">Passwords are stored as salted SHA-256 hashes. Catalog and movement data stay local until Firebase sync is configured.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div id="appShell" class="app-shell hidden">
+        <header class="topbar" id="mainTopbar">
+            <div class="topbar-left">
+                <div class="brand-lockup">
+                    <span class="brand-mark" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"></path>
+                            <path d="M4 7.5 12 12l8-4.5M12 12v9"></path>
+                        </svg>
+                    </span>
+                    <span class="brand-copy">
+                        <strong>MATERIAL<span>//</span>REQUEST</strong>
+                        <small>Movement control</small>
+                    </span>
+                </div>
+
+                <nav class="main-nav" id="mainNav" aria-label="Primary navigation">
+                    <button class="nav-tab" data-nav="request" data-min-role="REQUESTER">New request</button>
+                    <button class="nav-tab" data-nav="requests" data-min-role="REQUESTER">My requests</button>
+                    <button class="nav-tab" data-nav="dashboard" data-min-role="LOGISTICS">Dashboard</button>
+                    <button class="nav-tab" data-nav="queue" data-min-role="LOGISTICS">Logistics queue</button>
+                    <button class="nav-tab active" data-nav="catalog" data-min-role="REQUESTER">Catalog</button>
+                    <button class="nav-tab" data-nav="stock" data-min-role="LOGISTICS">Stock</button>
+                    <button class="nav-tab" data-nav="reports" data-min-role="LOGISTICS">Reports</button>
+                    <button class="nav-tab" data-nav="admin" data-min-role="ADMIN">Admin</button>
+                </nav>
+            </div>
+
+            <div class="topbar-right">
+                <div class="sync-badge" id="syncBadge" title="Synchronization status">
+                    <span class="sync-dot" id="syncDot"></span>
+                    <span id="syncText">Local only</span>
+                </div>
+                <span class="topbar-clock" id="topbarClock">--:--</span>
+                <div class="user-pill">
+                    <span class="user-avatar" id="topUserInitials">--</span>
+                    <span class="user-copy">
+                        <strong id="topUserName">User</strong>
+                        <small id="topUserRole">Role</small>
+                    </span>
+                </div>
+                <button class="btn btn-icon btn-ghost" data-action="logout" title="Sign out" aria-label="Sign out">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M10 5H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h4"></path>
+                        <path d="M14 8l4 4-4 4M18 12H9"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="app-main" id="mainContent">
+            <section id="viewCatalog" class="view">
+                <div class="page-head">
+                    <div>
+                        <span class="eyebrow">MATERIAL INTELLIGENCE</span>
+                        <h2>Catalog</h2>
+                        <p>Search by part number or name, then browse the full warehouse inventory.</p>
+                    </div>
+                    <div class="page-actions" id="catalogAdminActions">
+                        <button class="btn btn-secondary" data-action="catalog-import">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 4v11M8 11l4 4 4-4"></path>
+                                <path d="M5 19h14"></path>
+                            </svg>
+                            <span>Import CSV</span>
+                        </button>
+                        <button class="btn btn-secondary" data-action="catalog-export">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 20V9M8 13l4-4 4 4"></path>
+                                <path d="M5 5h14"></path>
+                            </svg>
+                            <span>Export CSV</span>
+                        </button>
+                        <button class="btn btn-primary" data-action="catalog-add">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 5v14M5 12h14"></path>
+                            </svg>
+                            <span>Add item</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stat-strip">
+                    <div class="stat-card">
+                        <span class="stat-label">CATALOG ITEMS</span>
+                        <strong id="catalogStatItems">0</strong>
+                        <small>Active part numbers</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">SUBCATEGORIES</span>
+                        <strong id="catalogStatSubcats">0</strong>
+                        <small>Material families</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">WITH PHOTO</span>
+                        <strong id="catalogStatPhotos">0</strong>
+                        <small>Visual reference coverage</small>
+                    </div>
+                    <div class="stat-card stat-card-wide">
+                        <span class="stat-label">LAST UPDATE</span>
+                        <strong class="stat-date" id="catalogStatUpdated">--</strong>
+                        <small>Catalog revision timestamp</small>
+                    </div>
+                </div>
+
+                <div class="catalog-toolbar">
+                    <div class="search-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="6.5"></circle>
+                            <path d="m16 16 4 4"></path>
+                        </svg>
+                        <input type="search" id="catalogSearch" placeholder="Search PN, name or subcategory..." autocomplete="off" spellcheck="false">
+                        <button type="button" class="search-clear hidden" id="catalogSearchClear" data-action="catalog-clear-search" aria-label="Clear search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                                <path d="m7 7 10 10M17 7 7 17"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="result-meta" id="catalogResultsMeta">Loading catalog...</div>
+                </div>
+
+                <div class="subcat-row" id="catalogSubcats"></div>
+
+                <div class="catalog-grid" id="catalogGrid"></div>
+
+                <div class="empty-state hidden" id="catalogEmpty">
+                    <span class="empty-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"></path>
+                            <path d="M4 7.5 12 12l8-4.5M12 12v9"></path>
+                        </svg>
+                    </span>
+                    <h3>No materials found</h3>
+                    <p id="catalogEmptyText">Try a different part number, name or subcategory.</p>
+                    <button class="btn btn-secondary" data-action="catalog-clear-search">Clear filters</button>
+                </div>
+            </section>
+
+            <section id="viewRequest" class="view hidden">
+                <div class="page-head">
+                    <div>
+                        <span class="eyebrow">REQUESTER WORKFLOW</span>
+                        <h2>New request</h2>
+                        <p>Select a catalog item, add the delivery context and send it directly to the logistics queue.</p>
+                    </div>
+                    <span class="phase-chip phase-chip-live"><span class="live-dot"></span> DIRECT TO WAREHOUSE</span>
+                </div>
+
+                <div class="request-layout">
+                    <section class="panel-card request-compose">
+                        <div class="panel-head">
+                            <div>
+                                <span class="panel-label">REQUEST FORM</span>
+                                <h3>Material and delivery</h3>
+                            </div>
+                            <span class="count-chip">01</span>
+                        </div>
+
+                        <form id="requestForm" class="request-form" novalidate>
+                            <div class="field">
+                                <label for="requestItemSearch">Find material</label>
+                                <div class="search-box request-search">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <circle cx="11" cy="11" r="6.5"></circle>
+                                        <path d="m16 16 4 4"></path>
+                                    </svg>
+                                    <input type="search" id="requestItemSearch" placeholder="Search part number, name or subcategory..." autocomplete="off" spellcheck="false">
+                                </div>
+                                <div class="request-results-head">
+                                    <span class="field-hint">Choose one material from the warehouse catalog.</span>
+                                    <span id="requestResultsMeta" class="result-meta"></span>
+                                </div>
+                                <div class="request-results" id="requestResults"></div>
+                            </div>
+
+                            <div class="request-selected is-empty" id="requestSelected"></div>
+
+                            <div class="form-grid request-fields">
+                                <div class="field">
+                                    <label for="requestQty">Quantity</label>
+                                    <div class="qty-wrap">
+                                        <input type="number" id="requestQty" min="0.001" step="any" inputmode="decimal" placeholder="e.g. 2">
+                                        <span class="qty-unit" id="requestQtyUnit">unit</span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label for="requestArea">Requesting area</label>
+                                    <input type="text" id="requestArea" list="requestAreaOptions" maxlength="80" placeholder="e.g. Production Line 1" autocomplete="off">
+                                </div>
+                                <div class="field">
+                                    <label for="requestDropOff">Drop-off location</label>
+                                    <input type="text" id="requestDropOff" list="requestDropOffOptions" maxlength="120" placeholder="Where should logistics deliver it?" autocomplete="off">
+                                </div>
+                                <div class="field">
+                                    <label for="requestJob">Job number</label>
+                                    <input type="text" id="requestJob" maxlength="60" placeholder="e.g. JOB-2481 or N/A" autocomplete="off" spellcheck="false">
+                                </div>
+                            </div>
+
+                            <fieldset class="urgency-field">
+                                <legend>Urgency</legend>
+                                <div class="urgency-options">
+                                    <label class="urgency-option">
+                                        <input type="radio" name="requestUrgency" id="requestUrgencyNormal" value="NORMAL" checked>
+                                        <span class="urgency-card">
+                                            <span class="urgency-dot"></span>
+                                            <span><strong>Normal</strong><small>Standard queue order</small></span>
+                                        </span>
+                                    </label>
+                                    <label class="urgency-option urgent">
+                                        <input type="radio" name="requestUrgency" id="requestUrgencyUrgent" value="URGENT">
+                                        <span class="urgency-card">
+                                            <span class="urgency-dot"></span>
+                                            <span><strong>Urgent</strong><small>Pinned to the top of the queue</small></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <p class="form-error" id="requestFormError" role="alert"></p>
+
+                            <div class="request-submit-row">
+                                <button type="button" class="btn btn-ghost" data-action="request-reset">Clear form</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="m4 12 16-8-6 16-2.5-6.5z"></path>
+                                    </svg>
+                                    <span>Send to logistics</span>
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <aside class="request-side">
+                        <section class="panel-card">
+                            <div class="panel-head">
+                                <div>
+                                    <span class="panel-label">REQUEST ROUTING</span>
+                                    <h3>Direct to the warehouse</h3>
+                                </div>
+                            </div>
+                            <div class="routing-steps">
+                                <div class="routing-step">
+                                    <span class="routing-index">01</span>
+                                    <div><strong>Select the material</strong><span>Search the live catalog so the part number, stock location and unit are exact.</span></div>
+                                </div>
+                                <div class="routing-step">
+                                    <span class="routing-index">02</span>
+                                    <div><strong>Add delivery context</strong><span>Quantity, requesting area, drop-off location, job number and urgency travel with the request.</span></div>
+                                </div>
+                                <div class="routing-step">
+                                    <span class="routing-index">03</span>
+                                    <div><strong>Logistics picks it up</strong><span>The request appears at the top of the queue when urgent. No approval step is required.</span></div>
+                                </div>
+                            </div>
+                            <p class="request-route-note">The queue is the notification. Track progress in My requests.</p>
+                        </section>
+
+                        <section class="panel-card">
+                            <div class="panel-head">
+                                <div>
+                                    <span class="panel-label">QUEUE SNAPSHOT</span>
+                                    <h3>Live warehouse load</h3>
+                                </div>
+                            </div>
+                            <div class="request-mini-stats">
+                                <div><span>New</span><strong id="requestQueueNew">0</strong></div>
+                                <div><span>Working</span><strong id="requestQueueWorking">0</strong></div>
+                                <div><span>Urgent open</span><strong id="requestQueueUrgent">0</strong></div>
+                            </div>
+                        </section>
+                    </aside>
+                </div>
+
+                <datalist id="requestAreaOptions"></datalist>
+                <datalist id="requestDropOffOptions"></datalist>
+            </section>
+
+            <section id="viewRequests" class="view hidden">
+                <div class="page-head">
+                    <div>
+                        <span class="eyebrow">REQUESTER WORKFLOW</span>
+                        <h2>My requests</h2>
+                        <p>Track every request from submission to fulfillment, including rejection reasons.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" data-nav="request">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 5v14M5 12h14"></path>
+                            </svg>
+                            <span>New request</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="request-list-toolbar">
+                    <div class="filter-row" id="requestFilters"></div>
+                    <span class="result-meta" id="requestsMeta"></span>
+                </div>
+
+                <div class="request-list" id="requestList"></div>
+
+                <div class="empty-state hidden" id="requestsEmpty">
+                    <span class="empty-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M5 4h14v16H5z"></path>
+                            <path d="M8 8h8M8 12h8M8 16h5"></path>
+                        </svg>
+                    </span>
+                    <h3 id="requestsEmptyTitle">No requests yet</h3>
+                    <p id="requestsEmptyText">Submit your first request and track its progress here.</p>
+                    <button class="btn btn-primary" data-nav="request">Create a request</button>
+                </div>
+            </section>
+
+            <section id="viewDashboard" class="view hidden">
+                <div class="page-head">
+                    <div>
+                        <span class="eyebrow">OPERATIONS OVERVIEW</span>
+                        <h2>Dashboard</h2>
+                        <p>Daily throughput, fulfillment speed, rejection drivers and the items that move most.</p>
+                    </div>
+                    <span class="phase-chip phase-chip-live"><span class="live-dot"></span> LIVE Â· <span id="dashTotalRequests">0</span> REQUESTS</span>
+                </div>
+
+                <div class="stat-strip dashboard-kpis">
+                    <div class="stat-card">
+                        <span class="stat-label">REQUESTS TODAY</span>
+                        <strong id="dashRequestsToday">0</strong>
+                        <small>Submitted since midnight</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">DONE TODAY</span>
+                        <strong id="dashDoneToday">0</strong>
+                        <small>Fulfilled since midnight</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">REJECTED TODAY</span>
+                        <strong id="dashRejectedToday">0</strong>
+                        <small>Rejected since midnight</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">URGENT OPEN</span>
+                        <strong id="dashUrgentOpen">0</strong>
+                        <small>Waiting for logistics</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">AVG FULFILLMENT</span>
+                        <strong class="dash-avg" id="dashAvgFulfillment">--</strong>
+                        <small id="dashAvgCaption">No completed requests yet</small>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <section class="panel-card dashboard-chart-card">
+                        <div class="panel-head">
+                            <div>
+                                <span class="panel-label">REQUEST FLOW</span>
+                                <h3>Requests per day</h3>
+                            </div>
+                            <span class="panel-meta" id="dashChartSummary">Loading...</span>
+                        </div>
+                        <div class="dashboard-chart" id="dashChart"></div>
+                    </section>
+
+                    <section class="panel-card">
+                        <div class="panel-head">
+                            <div>
+                                <span class="panel-label">LOSS ANALYSIS</span>
+                                <h3>Rejection Pareto</h3>
+                            </div>
+                            <span class="panel-meta" id="dashParetoMeta"></span>
+                        </div>
+                        <div class="pareto-list" id="dashPareto"></div>
+                    </section>
+
+                    <section class="panel-card">
+                        <div class="panel-head">
+                            <div>
+                                <span class="panel-label">DEMAND SIGNAL</span>
+                                <h3>Top 10 requested items</h3>
+                            </div>
+                            <span class="panel-meta" id="dashTopItemsMeta"></span>
+                        </div>
+                        <div class="top-items-list" id="dashTopItems"></div>
+                    </section>
+                </div>
+            </section>
+
+            <section id="viewQueue" class="view hidden">
+                <div class="page-head">
+                    <div>
+                        <span class="eyebrow">WAREHOUSE OPERATIONS</span>
+                        <h2>Logistics queue</h2>
+                        <p>New and urgent requests first, with stock location and full delivery context.</p>
+                    </div>
+                    <span class="phase-chip phase-chip-live"><span class="live-dot"></span> LIVE QUEUE</span>
+                </div>
+
+                <div class="stat-strip">
+                    <div class="stat-card">
+                        <span class="stat-label">NEW REQUESTS</span>
+                        <strong id="queueStatNew">0</strong>
+                        <small>Waiting to be started</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">IN PROGRESS</span>
+                        <strong id="queueStatWorking">0</strong>
+                        <small>Being picked by logistics</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">URGENT OPEN</span>
+                        <strong id="queueStatUrgent">0</strong>
+                        <small>Pinned to the top</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">DONE TODAY</span>
+                        <strong id="queueStatDone">0</strong>
+                        <small>Fulfilled since midnight</small>
+                    </div>
+                </div>
+
+                <div class="queue-toolbar">
+                    <div class="filter-row" id="queueFilters"></div>
+                    <span class="result-meta" id="queueMeta"></span>
+                </div>
+
+                <div class="queue-list" id="queueList"></div>
+
+                <div class="empty-state hidden" id="queueEmpty">
+                    <span class="empty-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"></path>
+                            <path d="m8 12 3 3 5-6"></path>
+                        </svg>
+                    </span>
+                    <h3 id="queueEmptyTitle">Queue clear</h3>
+                    <p id="queueEmptyText">New requester submissions will appear here immediately.</p>
+                </div>
+            </section>
+
+            <section id="viewStock" class="view hidden">
+                <div class="page-head">
+                    <div>
+                        <span class="eyebrow">INFORMATIONAL BALANCE</span>
+                        <h2>Stock</h2>
+                        <p>Automatic issues from fulfilled requests, manual receipts and a permanent movement ledger.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" data-action="stock-receipt">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 5v14M5 12h14"></path>
+                            </svg>
+                            <span>Receive stock</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stat-strip">
+                    <div class="stat-card">
+                        <span class="stat-label">ITEMS TRACKED</span>
+                        <strong id="stockStatItems">0</strong>
+                        <small>Materials with movements</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">RECEIPTS</span>
+                        <strong id="stockStatReceipts">0</strong>
+                        <small>Inbound entries recorded</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">ISSUES</span>
+                        <strong id="stockStatIssues">0</strong>
+                        <small>Automatic fulfilled-request exits</small>
+                    </div>
+                    <div class="stat-card stat-card-wide">
+                        <span class="stat-label">LAST MOVEMENT</span>
+                        <strong class="stat-date" id="stockStatLast">--</strong>
+                        <small>Latest ledger timestamp</small>
+                    </div>
+                </div>
+
+                <section class="panel-card stock-panel">
+                    <div class="panel-head">
+                        <div>
+                            <span class="panel-label">INFORMATIONAL BALANCE</span>
+                            <h3>Current stock balance</h3>
+                        </div>
+                        <span class="panel-meta" id="stockBalanceMeta"></span>
+                    </div>
+                    <div class="stock-toolbar">
+                        <div class="search-box stock-search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="11" cy="11" r="6.5"></circle>
+                                <path d="m16 16 4 4"></path>
+                            </svg>
+                            <input type="search" id="stockSearch" placeholder="Filter by PN, item or location..." autocomplete="off" spellcheck="false">
+                        </div>
+                        <span class="result-meta">Balance = receipts - issues. Informational only.</span>
+                    </div>
+                    <div class="table-wrap stock-table-wrap">
+                        <table class="data-table stock-table">
+                            <thead>
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Location</th>
+                                    <th>Unit</th>
+                                    <th class="align-right">Received</th>
+                                    <th class="align-right">Issued</th>
+                                    <th class="align-right">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stockBalanceList"></tbody>
+                        </table>
+                    </div>
+                    <div class="inline-empty hidden" id="stockBalanceEmpty">No materials match this filter.</div>
+                </section>
+
+                <section class="panel-card stock-panel">
+                    <div class="panel-head">
+                        <div>
+                            <span class="panel-label">MOVEMENT LEDGER</span>
+                            <h3>Movement history</h3>
+                        </div>
+                        <span class="panel-meta" id="stockLedgerMeta"></span>
+                    </div>
+                    <div class="stock-toolbar">
+                        <div class="filter-row" id="stockFilters"></div>
+                    </div>
+                    <div class="table-wrap stock-table-wrap">
+                        <table class="data-table stock-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Material</th>
+                                    <th class="align-right">Quantity</th>
+                                    <th>Reference / note</th>
+                                    <th>Handled by</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stockLedgerList"></tbody>
+                        </table>
+                    </div>
+                    <div class="inline-empty hidden" id="stockLedgerEmpty">No movements match this filter.</div>
+                </section>
+            </section>
+
+            <section id="viewReports" class="view hidden">
+                <div class="page-head">
+                    <div>
+                        <span class="eyebrow">OPERATIONAL REVIEW</span>
+                        <h2>Reports</h2>
+                        <p>Requested, fulfilled and rejected work by period, with lead times and rejection drivers.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-secondary" data-action="report-export-all">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 5h16v14H4zM4 10h16M10 10v9"></path>
+                            </svg>
+                            <span>Export all data</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="report-toolbar">
+                    <div class="filter-row" id="reportPeriods"></div>
+                    <div class="report-range-nav">
+                        <button type="button" class="icon-btn" data-action="report-shift" data-delta="-1" aria-label="Previous period">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg>
+                        </button>
+                        <strong id="reportRangeLabel">--</strong>
+                        <button type="button" class="icon-btn" data-action="report-shift" data-delta="1" aria-label="Next period">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+                        </button>
+                        <button type="button" class="btn btn-ghost btn-sm" data-action="report-current">Current</button>
+                    </div>
+                    <span class="result-meta" id="reportMeta"></span>
+                </div>
+
+                <div class="stat-strip">
+                    <div class="stat-card">
+                        <span class="stat-label">REQUESTED</span>
+                        <strong id="reportStatRequested">0</strong>
+                        <small>Created in this period</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">FULFILLED</span>
+                        <strong id="reportStatDone">0</strong>
+                        <small>Completed in this period</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">REJECTED</span>
+                        <strong id="reportStatRejected">0</strong>
+                        <small>Rejected in this period</small>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">AVG FULFILLMENT</span>
+                        <strong class="dash-avg" id="reportStatAvg">--</strong>
+                        <small id="reportStatAvgCaption">No completed requests in this period</small>
+                    </div>
+                </div>
+
+                <div class="report-grid">
+                    <section class="panel-card">
+                        <div class="panel-head">
+                            <div>
+                                <span class="panel-label">DEMAND SIGNAL</span>
+                                <h3>Top requested items</h3>
+                            </div>
+                        </div>
+                        <div class="top-items-list" id="reportTopItems"></div>
+                    </section>
+                    <section class="panel-card">
+                        <div class="panel-head">
+                            <div>
+                                <span class="panel-label">LOSS ANALYSIS</span>
+                                <h3>Rejection Pareto</h3>
+                            </div>
+                        </div>
+                        <div class="pareto-list" id="reportPareto"></div>
+                    </section>
+                </div>
+
+                <section class="panel-card report-table-card">
+                    <div class="panel-head">
+                        <div>
+                            <span class="panel-label">REQUEST DETAIL</span>
+                            <h3>Everything that touched this period</h3>
+                        </div>
+                        <span class="panel-meta" id="reportTableMeta">Requested, fulfilled or rejected</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data-table report-table">
+                            <thead>
+                                <tr>
+                                    <th>Request</th>
+                                    <th>Material</th>
+                                    <th class="align-right">Qty</th>
+                                    <th>Status</th>
+                                    <th>Requester</th>
+                                    <th>Handling</th>
+                                    <th>Lead time</th>
+                                    <th>Rejection reason</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportRequestRows"></tbody>
+                        </table>
+                    </div>
+                    <div class="inline-empty hidden" id="reportTableEmpty">No requests in this period.</div>
+                </section>
+            </section>
+
+            <section id="viewAdmin" class="view hidden">
+                <div class="page-head">
+                    <div>
+                        <span class="eyebrow">SYSTEM CONTROL</span>
+                        <h2>Administration</h2>
+                        <p>Manage accounts, roles and the optional Firebase Realtime Database connection.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn btn-primary" data-action="user-add">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 5v14M5 12h14"></path>
+                            </svg>
+                            <span>Add user</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="admin-grid">
+                    <section class="panel-card admin-users-panel">
+                        <div class="panel-head">
+                            <div>
+                                <span class="panel-label">ACCESS CONTROL</span>
+                                <h3>Users and roles</h3>
+                            </div>
+                            <span class="count-chip" id="userCount">0</span>
+                        </div>
+                        <div class="table-wrap">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Username</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th class="align-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTable"></tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <aside class="admin-side">
+                        <section class="panel-card">
+                            <div class="panel-head">
+                                <div>
+                                    <span class="panel-label">CLOUD SYNC</span>
+                                    <h3>Firebase Realtime Database</h3>
+                                </div>
+                                <span class="connection-chip" id="adminSyncChip"><span class="sync-dot" id="adminSyncDot"></span><span id="adminSyncChipText">Local</span></span>
+                            </div>
+                            <p class="panel-copy">The database URL is stored only in this browser's localStorage. Leave it empty to stay fully local.</p>
+                            <div class="field compact">
+                                <label for="adminSyncUrl">Database URL</label>
+                                <input type="url" id="adminSyncUrl" placeholder="Paste your Firebase Realtime Database URL" spellcheck="false">
+                            </div>
+                            <div class="inline-actions">
+                                <button class="btn btn-primary btn-sm" data-action="sync-save">Connect</button>
+                                <button class="btn btn-secondary btn-sm" data-action="sync-clear">Disconnect</button>
+                            </div>
+                            <p class="sync-status-line" id="adminSyncStatus">Cloud sync is off. Data is stored on this device.</p>
+                            <p class="sync-detail-line" id="adminSyncDetail"></p>
+                        </section>
+
+                        <section class="panel-card">
+                            <div class="panel-head">
+                                <div>
+                                    <span class="panel-label">DATA SNAPSHOT</span>
+                                    <h3>Current dataset</h3>
+                                </div>
+                            </div>
+                            <div class="system-metrics">
+                                <div><span>Catalog items</span><strong id="systemItems">0</strong></div>
+                                <div><span>Requests</span><strong id="systemRequests">0</strong></div>
+                                <div><span>Movements</span><strong id="systemMovements">0</strong></div>
+                                <div><span>App version</span><strong id="systemVersion">1.0.0</strong></div>
+                            </div>
+                        </section>
+                    </aside>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-backdrop" id="modalItem" aria-hidden="true">
+        <div class="modal-box modal-lg" role="dialog" aria-modal="true" aria-labelledby="itemModalTitle">
+            <div class="modal-head">
+                <div>
+                    <span class="panel-label">CATALOG RECORD</span>
+                    <h3 id="itemModalTitle">Add material</h3>
+                </div>
+                <button class="modal-close" type="button" data-action="modal-close" data-modal="modalItem" aria-label="Close dialog">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <path d="m7 7 10 10M17 7 7 17"></path>
+                    </svg>
+                </button>
+            </div>
+            <form id="itemForm" class="modal-body">
+                <input type="hidden" id="itemId">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="itemPn">Part number (PN)</label>
+                        <input type="text" id="itemPn" placeholder="e.g. TAPE-3M-33" maxlength="60" spellcheck="false" required>
+                    </div>
+                    <div class="field">
+                        <label for="itemName">Item name</label>
+                        <input type="text" id="itemName" placeholder="e.g. PVC Electrical Tape 19mm" maxlength="120" required>
+                    </div>
+                    <div class="field">
+                        <label for="itemSubcategory">Subcategory</label>
+                        <input type="text" id="itemSubcategory" list="subcategoryOptions" placeholder="e.g. Tapes" maxlength="60" required>
+                        <datalist id="subcategoryOptions"></datalist>
+                    </div>
+                    <div class="field">
+                        <label for="itemUnit">Unit</label>
+                        <select id="itemUnit" required></select>
+                    </div>
+                    <div class="field">
+                        <label for="itemStockLocation">Stock location</label>
+                        <input type="text" id="itemStockLocation" placeholder="e.g. A-01-02" maxlength="60" required>
+                    </div>
+                    <div class="field">
+                        <label for="itemPhotoUrl">Photo URL</label>
+                        <input type="url" id="itemPhotoUrl" placeholder="https://... or data:image/..." spellcheck="false">
+                    </div>
+                </div>
+
+                <div class="photo-editor">
+                    <div class="photo-preview" id="itemPhotoPreview">
+                        <span>No photo selected</span>
+                    </div>
+                    <div class="photo-controls">
+                        <span class="field-label">Item photo</span>
+                        <p>Upload a photo from your device or paste an image URL. JPG, PNG and WebP up to 1.5 MB.</p>
+                        <label class="btn btn-secondary btn-sm file-button">
+                            <span>Choose image</span>
+                            <input type="file" id="itemPhotoFile" accept="image/jpeg,image/png,image/webp,image/svg+xml">
+                        </label>
+                        <button class="btn btn-ghost btn-sm" type="button" data-action="photo-clear">Remove photo</button>
+                        <input type="hidden" id="itemPhotoData">
+                    </div>
+                </div>
+
+                <p class="form-error" id="itemFormError" role="alert"></p>
+
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" type="button" data-action="modal-close" data-modal="modalItem">Cancel</button>
+                    <button class="btn btn-primary" type="submit" id="itemSaveBtn">Save item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="modalImport" aria-hidden="true">
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="importTitle">
+            <div class="modal-head">
+                <div>
+                    <span class="panel-label">BULK CATALOG</span>
+                    <h3 id="importTitle">Import CSV</h3>
+                </div>
+                <button class="modal-close" type="button" data-action="modal-close" data-modal="modalImport" aria-label="Close dialog">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <path d="m7 7 10 10M17 7 7 17"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="import-format">
+                    <span class="field-label">Expected columns</span>
+                    <code>PN, Name, Subcategory, Unit, Stock Location, Photo</code>
+                    <p>Comma or semicolon separated. Existing part numbers are updated; new part numbers are added. You will review valid rows, errors and duplicate PNs before anything is written.</p>
+                </div>
+                <div class="field">
+                    <label for="importFile">CSV file</label>
+                    <label class="btn btn-secondary btn-block file-button">
+                        <span>Choose CSV file</span>
+                        <input type="file" id="importFile" accept=".csv,text/csv,text/plain">
+                    </label>
+                    <span class="file-name" id="importFileName">No file selected</span>
+                </div>
+                <div class="field">
+                    <label for="importText">Or paste CSV content</label>
+                    <textarea id="importText" rows="7" placeholder="PN;Name;Subcategory;Unit;Stock Location;Photo"></textarea>
+                </div>
+                <p class="form-error" id="importError" role="alert"></p>
+                <div class="import-result hidden" id="importResult"></div>
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" type="button" data-action="modal-close" data-modal="modalImport">Cancel</button>
+                    <button class="btn btn-primary" type="button" id="importSubmit" data-action="import-submit">Preview import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="modalUser" aria-hidden="true">
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
+            <div class="modal-head">
+                <div>
+                    <span class="panel-label">ACCESS CONTROL</span>
+                    <h3 id="userModalTitle">Add user</h3>
+                </div>
+                <button class="modal-close" type="button" data-action="modal-close" data-modal="modalUser" aria-label="Close dialog">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <path d="m7 7 10 10M17 7 7 17"></path>
+                    </svg>
+                </button>
+            </div>
+            <form id="userForm" class="modal-body">
+                <input type="hidden" id="userId">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="userName">Full name</label>
+                        <input type="text" id="userName" placeholder="e.g. Maria Silva" maxlength="80" required>
+                    </div>
+                    <div class="field">
+                        <label for="userUsername">Username</label>
+                        <input type="text" id="userUsername" placeholder="e.g. msilva" maxlength="40" autocomplete="off" spellcheck="false" required>
+                    </div>
+                    <div class="field">
+                        <label for="userPassword">Password</label>
+                        <input type="password" id="userPassword" placeholder="Minimum 6 characters" autocomplete="new-password">
+                    </div>
+                    <div class="field">
+                        <label for="userRole">Role</label>
+                        <select id="userRole" required>
+                            <option value="REQUESTER">Requester</option>
+                            <option value="LOGISTICS">Logistics</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <label class="check-row">
+                    <input type="checkbox" id="userActive" checked>
+                    <span>Account is active and can sign in</span>
+                </label>
+                <p class="form-hint" id="userPasswordHint">Required for new users. Leave blank when editing to keep the current password.</p>
+                <p class="form-error" id="userFormError" role="alert"></p>
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" type="button" data-action="modal-close" data-modal="modalUser">Cancel</button>
+                    <button class="btn btn-primary" type="submit" id="userSaveBtn">Save user</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="modalReject" aria-hidden="true">
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="rejectTitle">
+            <div class="modal-head">
+                <div>
+                    <span class="panel-label">LOGISTICS ACTION</span>
+                    <h3 id="rejectTitle">Reject request</h3>
+                </div>
+                <button class="modal-close" type="button" data-action="modal-close" data-modal="modalReject" aria-label="Close dialog">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <path d="m7 7 10 10M17 7 7 17"></path>
+                    </svg>
+                </button>
+            </div>
+            <form id="requestRejectForm" class="modal-body">
+                <div class="reject-summary" id="rejectRequestSummary"></div>
+                <div class="field">
+                    <label for="rejectReason">Rejection reason</label>
+                    <select id="rejectReason" required>
+                        <option value="">Select a reason...</option>
+                        <option value="Out of stock">Out of stock</option>
+                        <option value="Aisle blocked">Aisle blocked</option>
+                        <option value="Forklift down">Forklift down</option>
+                        <option value="Item not found at location">Item not found at location</option>
+                        <option value="Damaged material">Damaged material</option>
+                        <option value="Duplicate request">Duplicate request</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="rejectNote" id="rejectNoteLabel">Additional note (optional)</label>
+                    <textarea id="rejectNote" rows="3" maxlength="280" placeholder="Add details for the requester..."></textarea>
+                </div>
+                <p class="form-hint" id="rejectNoteHint">Optional context for the requester. Required when Other is selected.</p>
+                <p class="form-error" id="rejectFormError" role="alert"></p>
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" type="button" data-action="modal-close" data-modal="modalReject">Cancel</button>
+                    <button class="btn btn-danger" type="submit" id="rejectSubmitBtn">Reject request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="modalReceipt" aria-hidden="true">
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="receiptTitle">
+            <div class="modal-head">
+                <div>
+                    <span class="panel-label">STOCK ACTION</span>
+                    <h3 id="receiptTitle">Receive stock</h3>
+                </div>
+                <button class="modal-close" type="button" data-action="modal-close" data-modal="modalReceipt" aria-label="Close dialog">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <path d="m7 7 10 10M17 7 7 17"></path>
+                    </svg>
+                </button>
+            </div>
+            <form id="receiptForm" class="modal-body">
+                <div class="field">
+                    <label for="receiptItem">Material</label>
+                    <select id="receiptItem"></select>
+                </div>
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="receiptQty">Quantity received</label>
+                        <input type="number" id="receiptQty" min="0.001" step="any" inputmode="decimal" placeholder="e.g. 100">
+                    </div>
+                    <div class="field">
+                        <label for="receiptRef">Reference / PO</label>
+                        <input type="text" id="receiptRef" maxlength="80" placeholder="e.g. PO-2481" autocomplete="off">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="receiptNote">Note</label>
+                    <textarea id="receiptNote" rows="3" maxlength="240" placeholder="Optional receiving note..."></textarea>
+                </div>
+                <p class="form-hint">Receipts are added to the movement ledger immediately. Fulfilled requests create issues automatically.</p>
+                <p class="form-error" id="receiptFormError" role="alert"></p>
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" type="button" data-action="modal-close" data-modal="modalReceipt">Cancel</button>
+                    <button class="btn btn-primary" type="submit" id="receiptSaveBtn">Record receipt</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="modalConfirm" aria-hidden="true">
+        <div class="modal-box modal-sm" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+            <div class="modal-head">
+                <div>
+                    <span class="panel-label">CONFIRM ACTION</span>
+                    <h3 id="confirmTitle">Are you sure?</h3>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p class="confirm-copy" id="confirmMessage"></p>
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" type="button" data-action="confirm-cancel">Cancel</button>
+                    <button class="btn btn-danger" type="button" id="confirmOk" data-action="confirm-ok">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-stack" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="js/vendor/xlsx.full.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/crypto.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/sync.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/catalog.js"></script>
+    <script src="js/requests.js"></script>
+    <script src="js/movements.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="js/exporter.js"></script>
+    <script src="js/views/app.js"></script>
+    <script src="js/views/catalogView.js"></script>
+    <script src="js/views/adminView.js"></script>
+    <script src="js/views/requestsView.js"></script>
+    <script src="js/views/queueView.js"></script>
+    <script src="js/views/dashboardView.js"></script>
+    <script src="js/views/stockView.js"></script>
+    <script src="js/views/reportsView.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

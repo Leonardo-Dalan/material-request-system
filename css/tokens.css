@@ -1,0 +1,84 @@
+:root {
+    --bg-main: #080c12;
+    --bg-deep: #06090e;
+    --bg-panel: #0f1622;
+    --bg-card: #131d2c;
+    --bg-card-hover: #182438;
+    --bg-input: #080d15;
+    --bg-subbar: #0b111b;
+
+    --border: #1d293a;
+    --border-light: #2d3d54;
+    --border-strong: #3e526d;
+
+    --text-main: #f4f8fc;
+    --text-soft: #d8e1ec;
+    --text-muted: #8fa1b7;
+    --text-dim: #60748c;
+
+    --cyan: #06b6d4;
+    --cyan-hover: #22d3ee;
+    --cyan-soft: rgba(6, 182, 212, 0.11);
+    --cyan-border: rgba(6, 182, 212, 0.34);
+    --cyan-fill: rgba(6, 182, 212, 0.16);
+
+    --green: #10b981;
+    --green-soft: rgba(16, 185, 129, 0.12);
+    --green-border: rgba(16, 185, 129, 0.38);
+
+    --amber: #f59e0b;
+    --amber-soft: rgba(245, 158, 11, 0.12);
+    --amber-border: rgba(245, 158, 11, 0.4);
+    --amber-text: #fcd34d;
+
+    --red: #ef4444;
+    --red-soft: rgba(239, 68, 68, 0.12);
+    --red-border: rgba(239, 68, 68, 0.42);
+    --red-text: #fca5a5;
+
+    --blue: #3b82f6;
+    --blue-soft: rgba(59, 130, 246, 0.12);
+    --blue-border: rgba(59, 130, 246, 0.38);
+
+    --purple: #8b5cf6;
+    --purple-soft: rgba(139, 92, 246, 0.12);
+    --purple-border: rgba(139, 92, 246, 0.38);
+
+    --idle: #64748b;
+    --idle-soft: rgba(100, 116, 139, 0.15);
+    --idle-border: rgba(148, 163, 184, 0.35);
+
+    --sp-1: 4px;
+    --sp-2: 6px;
+    --sp-3: 8px;
+    --sp-4: 10px;
+    --sp-5: 12px;
+    --sp-6: 14px;
+    --sp-7: 16px;
+    --sp-8: 20px;
+    --sp-9: 24px;
+    --sp-10: 28px;
+    --sp-11: 34px;
+    --sp-12: 42px;
+
+    --r-sm: 4px;
+    --r-md: 7px;
+    --r-lg: 10px;
+    --r-xl: 14px;
+    --r-2xl: 18px;
+    --r-pill: 999px;
+
+    --font-sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "Cascadia Mono", Consolas, "SFMono-Regular", monospace;
+
+    --topbar-h: 66px;
+    --page-max: 1560px;
+
+    --t-fast: 0.14s;
+    --t-med: 0.28s;
+    --t-slow: 0.5s;
+
+    --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.24);
+    --shadow-pop: 0 28px 70px rgba(0, 0, 0, 0.55);
+    --glow-cyan: 0 0 0 1px rgba(6, 182, 212, 0.18), 0 8px 28px rgba(6, 182, 212, 0.09);
+}
