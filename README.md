@@ -2,6 +2,18 @@
 
 Factory material request system: operators request materials, logistics fulfills them through a priority queue, and management tracks everything with stock control, dashboards and reports. Offline-first web app built with vanilla JS and Firebase.
 
+## Live demo
+
+**https://materialrequestofc.netlify.app**
+
+Try it with the demo accounts:
+
+| Role      | Username    | Password      |
+|-----------|-------------|---------------|
+| Requester | `requester` | `requester123`|
+| Logistics | `logistics` | `logistics123`|
+| Admin     | `admin`     | `admin123`    |
+
 ## Features
 
 - **Role-based access** — Requester, Logistics and Admin roles with demo accounts
@@ -13,16 +25,6 @@ Factory material request system: operators request materials, logistics fulfills
 - **Reports** — day/week/month periods, requested/fulfilled/rejected counts, top materials, rejection Pareto
 - **Export** — single "Export all data" action producing one `.xlsx` with Catalog, Requests and Stock Movements sheets (SheetJS bundled locally, no CDN)
 - **Sync** — Firebase Realtime Database sync (URL stored per-device in localStorage), non-destructive merge
-
-## Demo
-
-Try it with the demo accounts:
-
-| Role      | Username    | Password      |
-|-----------|-------------|---------------|
-| Requester | `requester` | `requester123`|
-| Logistics | `logistics` | `logistics123`|
-| Admin     | `admin`     | `admin123`    |
 
 ## Run locally
 
