@@ -518,6 +518,39 @@
                         <div class="top-items-list" id="dashTopItems"></div>
                     </section>
                 </div>
+
+                <section class="panel-card dashboard-history-card">
+                    <div class="panel-head">
+                        <div>
+                            <span class="panel-label">AUDIT TRAIL</span>
+                            <h3>Request history</h3>
+                        </div>
+                        <span class="panel-meta" id="dashHistoryMeta"></span>
+                    </div>
+                    <div class="table-wrap dashboard-history-wrap">
+                        <table class="data-table dashboard-history-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Request</th>
+                                    <th scope="col">Area</th>
+                                    <th scope="col">Item</th>
+                                    <th scope="col" class="align-right">Qty</th>
+                                    <th scope="col">Requested</th>
+                                    <th scope="col">Started</th>
+                                    <th scope="col">Finished</th>
+                                    <th scope="col">Lead time</th>
+                                    <th scope="col">Rejected</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashHistoryRows"></tbody>
+                        </table>
+                    </div>
+                    <div class="dash-empty hidden" id="dashHistoryEmpty">
+                        <strong>No requests yet</strong>
+                        <span>Every request will appear here with its full timeline.</span>
+                    </div>
+                </section>
             </section>
 
             <section id="viewQueue" class="view hidden">

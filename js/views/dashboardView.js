@@ -95,6 +95,59 @@
         }).join('');
     }
 
+    function renderHistory() {
+        var host = MRS.utils.$('dashHistoryRows');
+        if (!host) return;
+        var empty = MRS.utils.$('dashHistoryEmpty');
+        var meta = MRS.utils.$('dashHistoryMeta');
+        var requests = MRS.requests.all().slice().sort(function (a, b) {
+            var byCreatedAt = Number(b.createdAt || 0) - Number(a.createdAt || 0);
+            if (byCreatedAt) return byCreatedAt;
+            return String(b.requestNumber || '').localeCompare(String(a.requestNumber || ''));
+        });
+
+        if (meta) {
+            meta.textContent = requests.length
+                ? requests.length + ' request' + (requests.length === 1 ? '' : 's') + ' · all statuses · newest first'
+                : 'No requests recorded';
+        }
+
+        if (!requests.length) {
+            host.innerHTML = '';
+            host.classList.add('hidden');
+            if (empty) empty.classList.remove('hidden');
+            return;
+        }
+
+        host.classList.remove('hidden');
+        if (empty) empty.classList.add('hidden');
+
+        host.innerHTML = requests.map(function (request) {
+            var status = String(request.status || '');
+            var finished = status === 'DONE' ? MRS.utils.formatDateTime(request.completedAt) : '--';
+            var rejected = status === 'REJECTED' ? MRS.utils.formatDateTime(request.rejectedAt) : '--';
+            var reason = status === 'REJECTED' ? String(request.rejectionReason || '').trim() : '';
+            var note = status === 'REJECTED' ? String(request.rejectionNote || '').trim() : '';
+            var lead = status === 'DONE' ? MRS.utils.formatDuration(MRS.reports.fulfillmentMs(request)) : '--';
+            var rejectedCell = '<span class="dashboard-history-stamp">' + MRS.utils.escapeHtml(rejected) + '</span>' +
+                (reason ? '<small class="dashboard-history-note">' + MRS.utils.escapeHtml(reason) + '</small>' : '') +
+                (note ? '<small class="dashboard-history-note">Note: ' + MRS.utils.escapeHtml(note) + '</small>' : '');
+
+            return '<tr>' +
+                '<td><span class="dashboard-history-id">' + MRS.utils.escapeHtml(request.requestNumber || '--') + '</span></td>' +
+                '<td><span class="dashboard-history-area">' + MRS.utils.escapeHtml(request.requestingArea || '--') + '</span></td>' +
+                '<td><span class="dashboard-history-item"><strong>' + MRS.utils.escapeHtml(request.itemPn || '--') + '</strong><small>' + MRS.utils.escapeHtml(request.itemName || '--') + '</small></span></td>' +
+                '<td class="align-right"><span class="dashboard-history-qty">' + MRS.utils.escapeHtml(MRS.requests.formatQuantity(request.quantity)) + ' <small>' + MRS.utils.escapeHtml(request.unit || 'pc') + '</small></span></td>' +
+                '<td><span class="dashboard-history-stamp">' + MRS.utils.escapeHtml(MRS.utils.formatDateTime(request.createdAt)) + '</span></td>' +
+                '<td><span class="dashboard-history-stamp">' + MRS.utils.escapeHtml(MRS.utils.formatDateTime(request.startedAt)) + '</span></td>' +
+                '<td><span class="dashboard-history-stamp">' + MRS.utils.escapeHtml(finished) + '</span></td>' +
+                '<td><span class="dashboard-history-stamp">' + MRS.utils.escapeHtml(lead) + '</span></td>' +
+                '<td><span class="dashboard-history-rejected">' + rejectedCell + '</span></td>' +
+                '<td><span class="request-status ' + MRS.utils.escapeAttr(status) + '">' + MRS.utils.escapeHtml(MRS.requests.statusLabel(status)) + '</span></td>' +
+                '</tr>';
+        }).join('');
+    }
+
     function render() {
         if (!MRS.currentUser || !MRS.auth.hasRole('LOGISTICS')) return;
         if (MRS.movements) MRS.movements.ensureFromRequests();
@@ -104,6 +157,7 @@
         renderChart(data);
         renderPareto(data);
         renderTopItems(data);
+        renderHistory();
     }
 
     MRS.views = MRS.views || {};

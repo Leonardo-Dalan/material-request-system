@@ -492,6 +492,71 @@ function login(username, password) {
   eq('dashboard renders rejection pareto', d.querySelectorAll('#dashPareto .pareto-row').length, 1);
   check('dashboard escapes rejection reason', d.querySelectorAll('#dashPareto script').length === 0 && w.__pwned === undefined);
 
+  const historyRows = Array.from(d.querySelectorAll('#dashHistoryRows tr'));
+  eq('dashboard history lists every request', historyRows.length, 2);
+  check('dashboard history is sorted newest first',
+    historyRows[0].textContent.indexOf(requestTwo.request.requestNumber) !== -1 &&
+    historyRows[1].textContent.indexOf(requestOne.requestNumber) !== -1);
+  const doneHistoryRow = historyRows.find((row) => row.textContent.indexOf(requestOne.requestNumber) !== -1);
+  const rejectedHistoryRow = historyRows.find((row) => row.textContent.indexOf(requestTwo.request.requestNumber) !== -1);
+  check('dashboard history has a row for every status', !!doneHistoryRow && !!rejectedHistoryRow);
+  if (doneHistoryRow) {
+    eq('done row shows requested timestamp', doneHistoryRow.cells[4].textContent.trim(), u.formatDateTime(requestOne.createdAt));
+    eq('done row shows started timestamp', doneHistoryRow.cells[5].textContent.trim(), u.formatDateTime(requestOne.startedAt));
+    eq('done row shows finished timestamp', doneHistoryRow.cells[6].textContent.trim(), u.formatDateTime(requestOne.completedAt));
+    eq('done row shows lead time', doneHistoryRow.cells[7].textContent.trim(),
+      u.formatDuration(MRS.reports.fulfillmentMs(requestOne)));
+    eq('done row rejected column is empty', doneHistoryRow.cells[8].textContent.trim(), '--');
+    eq('done row status label', doneHistoryRow.cells[9].textContent.trim(), 'Done');
+  }
+  if (rejectedHistoryRow) {
+    eq('rejected row shows requested timestamp', rejectedHistoryRow.cells[4].textContent.trim(), u.formatDateTime(requestTwo.request.createdAt));
+    eq('rejected row has no start timestamp', rejectedHistoryRow.cells[5].textContent.trim(), '--');
+    eq('rejected row has no finish timestamp', rejectedHistoryRow.cells[6].textContent.trim(), '--');
+    eq('rejected row has no lead time', rejectedHistoryRow.cells[7].textContent.trim(), '--');
+    check('rejected row shows rejection time, reason and note',
+      rejectedHistoryRow.cells[8].textContent.indexOf(u.formatDateTime(rejectedRequest.rejectedAt)) !== -1 &&
+      rejectedHistoryRow.cells[8].textContent.indexOf('Other') !== -1 &&
+      rejectedHistoryRow.cells[8].textContent.indexOf('window.__pwned=12') !== -1);
+    eq('rejected row status label', rejectedHistoryRow.cells[9].textContent.trim(), 'Rejected');
+  }
+  check('dashboard history never renders zero timestamps as 1970',
+    d.getElementById('dashHistoryRows').textContent.indexOf('1970') === -1);
+
+  const qaOpen = MRS.requests.create({
+    itemId: tapeItem.id, quantity: '1', requestingArea: 'History QA', dropOff: 'Line 1', jobNumber: 'QA-OPEN', urgency: 'NORMAL'
+  });
+  const qaWorking = MRS.requests.create({
+    itemId: tapeItem.id, quantity: '1', requestingArea: 'History QA', dropOff: 'Line 1', jobNumber: 'QA-WORK', urgency: 'NORMAL'
+  });
+  MRS.requests.startWorking(qaWorking.request.id);
+  MRS.views.dashboard.render();
+  const openHistoryRow = Array.from(d.querySelectorAll('#dashHistoryRows tr'))
+    .find((row) => row.textContent.indexOf(qaOpen.request.requestNumber) !== -1);
+  const workingHistoryRow = Array.from(d.querySelectorAll('#dashHistoryRows tr'))
+    .find((row) => row.textContent.indexOf(qaWorking.request.requestNumber) !== -1);
+  check('open request renders in the dashboard history', !!openHistoryRow);
+  if (openHistoryRow) {
+    eq('open request keeps the requested timestamp', openHistoryRow.cells[4].textContent.trim(), u.formatDateTime(qaOpen.request.createdAt));
+    eq('open request has no start timestamp', openHistoryRow.cells[5].textContent.trim(), '--');
+    eq('open request has no finish timestamp', openHistoryRow.cells[6].textContent.trim(), '--');
+    eq('open request has no lead time', openHistoryRow.cells[7].textContent.trim(), '--');
+    eq('open request status label', openHistoryRow.cells[9].textContent.trim(), 'New');
+  }
+  check('working request renders in the dashboard history', !!workingHistoryRow);
+  if (workingHistoryRow) {
+    eq('working request shows the started timestamp', workingHistoryRow.cells[5].textContent.trim(),
+      u.formatDateTime(MRS.requests.getById(qaWorking.request.id).startedAt));
+    eq('working request has no finish timestamp', workingHistoryRow.cells[6].textContent.trim(), '--');
+    eq('working request has no lead time', workingHistoryRow.cells[7].textContent.trim(), '--');
+    eq('working request status label', workingHistoryRow.cells[9].textContent.trim(), 'Working');
+  }
+  MRS.db.requests = MRS.db.requests.filter((request) =>
+    request.id !== qaOpen.request.id && request.id !== qaWorking.request.id);
+  MRS.storage.save({ silent: true });
+  MRS.views.dashboard.render();
+  eq('dashboard history returns to the persisted requests', d.querySelectorAll('#dashHistoryRows tr').length, 2);
+
   section('REPORTS');
   MRS.views.app.switchView('reports');
   check('reports view opens for logistics', !d.getElementById('viewReports').classList.contains('hidden'));
