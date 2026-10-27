@@ -6,6 +6,12 @@ Factory material request system: operators request materials, logistics fulfills
 
 **https://materialrequestofc.netlify.app**
 
+
+
+https://github.com/user-attachments/assets/f6f11d41-df82-4fc6-80ab-68f7738a6163
+
+
+
 Try it with the demo accounts:
 
 | Role      | Username    | Password      |
